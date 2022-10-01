@@ -7,14 +7,14 @@ class Settings:
 
         self.ship_limit = 3
 
-        self.bullet_width = 300
+        self.bullet_width = 30
         self.bullet_height = 15
         self.bullet_color = (60,60,60)
         self.bullets_allowed = 30
 
-        self.fleet_drop_speed = 50
+        self.fleet_drop_speed = 100
 
-        self.speedup_scale = 1.8
+        self.speedup_scale = 1.5
         self.score_scale = 1.5
 
         self.initialize_dynamic_settings()

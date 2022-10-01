@@ -75,6 +75,7 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
+            self.sb.write_highest_score()
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self.__fire__bullet()
@@ -107,7 +108,6 @@ class AlienInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.sb.write_highest_score()
-                print(self.sb.stats.high_score)
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self.__check__keydown__events(event)
@@ -132,7 +132,6 @@ class AlienInvasion:
                 self.stats.score += self.settings.alien_points * len(aliens)
                 self.sb.prep_score()
                 self.sb.check_high_score()
-
 
         if not self.aliens:
             self.bullets.empty()
@@ -161,8 +160,11 @@ class AlienInvasion:
 
             sleep(0.5)
         else:
+
+            #self.__play_end_music()
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
+            self.__play_end_music()
 
     def __update__screen(self):
         self.screen.fill(self.settings.bg_color)
@@ -177,8 +179,24 @@ class AlienInvasion:
 
         pygame.display.flip()
 
+    def __play_music(self):
+        pygame.mixer.music.load("music/1.ogg")
+        pygame.mixer.music.set_volume(1)
+        pygame.mixer.music.play(-1)
+
+    def __play_end_music(self):
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load("music/3.ogg")
+        pygame.mixer.music.set_volume(1)
+        pygame.mixer.music.play()
+        sleep(4.0)
+        self.__play_music()
+
     def run_game(self):
+        self.__play_music()
+
         while True:
+
             self.__check__events()
 
             if self.stats.game_active:
